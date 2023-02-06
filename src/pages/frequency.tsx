@@ -9,12 +9,30 @@ import { Box, List, ListItem, ListItemText, Typography, useTheme} from "@mui/mat
 import { tokens } from "../components/theme"
 import Header from "../components/Header"
 
+const MyItem = () => {
+    const theme = useTheme()
+    const colors = tokens(theme.palette.mode)
+    return (<List><ListItem><ListItemText>sdf</ListItemText></ListItem></List>) 
+}
+
+function renderEventContenta(dayInfo) {
+   
+    return (<MyItem/>)
+  }
+  function renderEventContent(eventInfo) {
+    return (
+      <>
+        <i>{eventInfo.event.title}</i>
+      </>
+    )
+  }
+
 export default function Frequency() {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const [currentEvents, setCurrentEvents] = useState([])
 
-    const handleDataClick = (selected) => {
+    const handleDateClick = (selected) => {
         const title = prompt("Please enter a new title for your event")
         const calendarApi = selected.view.calendar;
         calendarApi.unselect();
@@ -38,6 +56,37 @@ export default function Frequency() {
   return (
     <Box m="20px">
         <Header title="Calendar" subtitle="Frequency"/>
+        <Box flex="1 1 100%" ml="15px">
+            <FullCalendar
+            height ="75vh"
+            plugins={[
+                dayGridPlugin,
+                timeGridPlugin,
+                interactionPlugin,
+                listPlugin
+            ]}
+            headerToolbar={{
+                left: "prev,next,today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+            }}
+            initialView="dayGridMonth"
+            editable={true}
+            selectable={true}
+            selectMirror={true}
+            dayMaxEvents={false}
+            select={handleDateClick}
+            eventClick={handleEventClick}
+            eventsSet={(events) => setCurrentEvents(events)}
+            //eventContent={renderEventContent}
+            //dayCellContent={renderEventContenta}
+            // dayCellClassNames="dayCell"
+            fixedWeekCount={false}
+            initialEvents={[
+                {id:"1234", title:"All-day event", date: "2023-02-05"}
+            ]}
+            />
+        </Box>
     </Box>
   )
 }

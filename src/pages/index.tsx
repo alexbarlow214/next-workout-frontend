@@ -45,23 +45,15 @@ function Home() {
   // }, [shouldRetrieve]);
   
       return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-          <CssBaseline/>
-          <div className="app">
-            <SideBar/>
-            <main className="content">
-              <Topbar />
-              asdasdasd
-              {/* <Exercises exercises = {exercises}/>
-              <input type="text" ref={inputRef}/>
-              <button onClick={handleInput} >Click me! </button>
-              <button onClick={colorMode.toggleColorMode} >Switch </button> */}
-            </main>
-          </div>
-      </ThemeProvider>
-     </ColorModeContext.Provider>
+    
+              <>sdfsdf</>
+              // <Exercises exercises = {exercises}/>
+              // <input type="text" ref={inputRef}/>
+              // <button onClick={handleInput} >Click me! </button>
+              // <button onClick={colorMode.toggleColorMode} >Switch </button>
+
  );
-}
+            }
+
 
 export default Home;

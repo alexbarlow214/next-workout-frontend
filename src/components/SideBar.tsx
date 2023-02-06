@@ -22,7 +22,7 @@ const Item = ({ title, to, icon, selected, setSelected}) => {
         style={{color: colors.grey[100]}}
         onClick = {() => setSelected(title)}
         icon={icon}>
-            <Typography variant="h4" fontWeight="bold">{title}</Typography>
+            <Typography variant="h5" fontWeight="bold">{title}</Typography>
             <Link href={to}/>
         </MenuItem>
     )
@@ -44,7 +44,7 @@ const SideBar = () =>{
                 backgroundColor: `transparent !important`
             },
             "& .pro-inner-item": {
-                padding: "5px 35px 5px 20px !important"
+                padding: "0 35px 0 20px !important"
             },
             "& .pro-inner-item:hover": {
                 color: `${colors.red[500]} !important`
@@ -61,7 +61,7 @@ const SideBar = () =>{
                         onClick={() => setIsCollasped(!isCollasped)}
                         icon = {isCollasped ? <MenuIcon/> : undefined}
                         style = {{
-                            margin: "10px 0 20px 0",
+                            margin: "10px 0 0 0",
                             color: colors.grey[100]
                         }}
                     >
@@ -83,14 +83,14 @@ const SideBar = () =>{
                     </MenuItem>
                     {/* USER */}
                     {!isCollasped && (
-                        <Box mb="25px">
+                        <Box mb="10px">
                             <Box display="flex"
                                 justifyContent="center"
                                 alignItems="center">
                                 <img 
                                     alt="profile-user"
-                                    width = "100px"
-                                    height = "100px"
+                                    width = "60px"
+                                    height = "60px"
                                     src = {`../../icon.png`}
                                     style ={{cursor: "pointer", borderRadius: "50%"}}
                                 />
@@ -98,7 +98,7 @@ const SideBar = () =>{
                  
 
                         <Box textAlign="center">
-                            <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{m: "10px 0 0 0"}}>Alex Barlow</Typography>
+                            <Typography variant="h3" color={colors.grey[100]} fontWeight="bold" sx={{m: "10px 0 0 0"}}>Alex Barlow</Typography>
                             <Typography variant = "h5" color={colors.gold[500]}>Overload</Typography>
                         </Box>
                     </Box>
@@ -113,10 +113,10 @@ const SideBar = () =>{
                             setSelected={setSelected}
                         />
                         {!isCollasped ? (
-                        <Typography variant ="h3" color={colors.grey[300]} sx={{m: "15px 0 5px 20px"}} fontWeight="bold">
+                        <Typography variant ="h5" color={colors.grey[300]} sx={{m: "5px 0 5px 20px"}} fontWeight="bold">
                             Manage Workouts
                         </Typography>
-                        ) : (<Divider sx={{m: "15px 0 15px 0", bgcolor: colors.grey[300]}} />)}
+                        ) : (<Divider sx={{m: "5px 0 5px 0", bgcolor: colors.grey[300]}} />)}
                         <Item 
                             title = "Enter Workout"
                             to = "/"
@@ -139,10 +139,10 @@ const SideBar = () =>{
                             setSelected={setSelected}
                         />                                           
                         {!isCollasped ? (
-                        <Typography variant ="h3" fontWeight="bold" color={colors.grey[300]} sx={{m: "15px 0 5px 20px"}}>
+                        <Typography variant ="h5" fontWeight="bold" color={colors.grey[300]} sx={{m: "5px 0 5px 20px"}}>
                             Analytics
                         </Typography>)
-                         : (<Divider sx={{m: "15px 0 15px 0", bgcolor: colors.grey[300]}}/>)}
+                         : (<Divider sx={{m: "5px 0 5px 0", bgcolor: colors.grey[300]}}/>)}
                         <Item 
                             title = "Frequency"
                             to = "/frequency"
@@ -158,10 +158,10 @@ const SideBar = () =>{
                             setSelected={setSelected}
                         />
                         {!isCollasped ? (
-                        <Typography variant ="h3" fontWeight="bold" color={colors.grey[300]} sx={{m: "15px 0 5px 20px"}}>
+                        <Typography variant ="h5" fontWeight="bold" color={colors.grey[300]} sx={{m: "5px 0 5px 20px"}}>
                             Community
                         </Typography>)
-                        : (<Divider sx={{m: "15px 0 15px 0", bgcolor: colors.grey[300]}}/>)}
+                        : (<Divider sx={{m: "5px 0 5px 0", bgcolor: colors.grey[300]}}/>)}
                         <Item 
                             title = "Friends"
                             to = "/"

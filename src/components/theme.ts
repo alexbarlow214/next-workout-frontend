@@ -360,17 +360,17 @@ export const themeSettings = (mode: any) => {
         },
         typography : {
             fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-            fontSize: 20,
+            fontSize: 14,
             // allVariants: {
             //     color: "#FCF6F5FF"
             //   },
             h1: {
                 fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-                fontSize: 40
+                fontSize: 32
             },
             h2: {
                 fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-                fontSize: 32
+                fontSize: 28
             },
             h3: {
                 fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
