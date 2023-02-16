@@ -1,15 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { ColorModeContext, useMode } from '../components/theme';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider, useTheme, Button } from '@mui/material';
+import Header from "../components/Header"
 //import {v4 as uuidv4} from 'uuid';
 import Topbar from "../components/TopBar"
 //import Workouts from "./scenes/workouts"
 import SideBar from "../components/SideBar"
 //import Calendar from './scenes/calendar';
+import { tokens } from "../components/theme"
+import Link from 'next/link';
+import { useRouter } from 'next/router'
 
 function Home() {
-  const inputRef = useRef()
-  const [theme, colorMode] = useMode();
+  //const inputRef = useRef()
+  //const [theme, colorMode] = useMode();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const router = useRouter()
 //   async function handleInput(e){
 //     const name = inputRef.current.value
 //     await fetch("http://localhost:8002/exercise", {
@@ -46,12 +53,21 @@ function Home() {
   
       return (
     
-              <>sdfsdf</>
-              // <Exercises exercises = {exercises}/>
-              // <input type="text" ref={inputRef}/>
-              // <button onClick={handleInput} >Click me! </button>
-              // <button onClick={colorMode.toggleColorMode} >Switch </button>
-
+          <Box m="20px">
+            <Box display="flex" justifyConent="space-between" alignItems="center">
+              <Header title ="DASHBOARD" subtitle="Welcome tasdasd"/>
+            </Box>
+            {/* Grid */}
+            <Box display="grid" gridTemplateColumns="repeat(12, 1fr)"
+            gridAutoRows="140px" gap="20px">
+              {/* <Link href={"/workouts"}> */}
+                <Box onClick={(e) => {e.preventDefault()
+    router.push("/workouts")}} gridColumn="span 12" backgroundColor={colors.cherryRed[500]} display="flex" alignItems="center" justifyContent="center">
+                  <Button href={"/workouts"} display="flex">yo</Button>
+                </Box>
+              {/* </Link> */}
+            </Box>
+          </Box>
  );
             }
 
