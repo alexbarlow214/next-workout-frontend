@@ -2,7 +2,7 @@
 import SideBar from './SideBar'
 import TopBar from './TopBar'
 import { ColorModeContext, useMode } from '../components/theme';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider, Box } from '@mui/material';
 
 export default function Layout({ children }) {
     const [theme, colorMode] = useMode();
@@ -11,13 +11,15 @@ export default function Layout({ children }) {
       <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
           <CssBaseline/>
-          <div className="app" display="flex">
+          <Box className="app" display="flex" height="100%" minHeight="600px">
             <SideBar flex="1"/>
-            <main className="content">
+            <Box className="content" display="flex" flex="1" flexDirection="column">
               <TopBar />
-                {children}
-            </main>
-          </div>
+              <Box display="flex" flex="1">
+              {children}
+              </Box>
+            </Box>
+          </Box>
       </ThemeProvider>
      </ColorModeContext.Provider>
     </>

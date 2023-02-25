@@ -160,7 +160,7 @@ export default function Workouts(){
   //     .then((res) => res.json())
   //     .then((data) => setExercises(data.data));
   // }, [shouldRetrieve]);
-    return(<Box m="20px">
+    return(<Box m="20px" flex="1">
     <Box display="flex" sx={{ flexDirection: "row" }}>
       <Box
         flex="1"

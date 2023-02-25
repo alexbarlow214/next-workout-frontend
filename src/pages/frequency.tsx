@@ -54,7 +54,7 @@ export default function Frequency() {
         }
     }
   return (
-    <Box m="20px">
+    <Box m="20px" flex="1">
         <Header title="Calendar" subtitle="Frequency"/>
         <Box flex="1 1 100%" ml="15px">
             <FullCalendar
