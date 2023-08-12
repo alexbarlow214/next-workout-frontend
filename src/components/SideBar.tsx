@@ -119,7 +119,7 @@ const SideBar = () =>{
                         ) : (<Divider sx={{m: "5px 0 5px 0", bgcolor: colors.grey[300]}} />)}
                         <Item 
                             title = "Enter Workout"
-                            to = "/"
+                            to = "/enterWorkout"
                             icon = {<FactCheckOutlinedIcon/>}
                             selected={selected}
                             setSelected={setSelected}
