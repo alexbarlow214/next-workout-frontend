@@ -10,30 +10,67 @@ import {
   Divider,
   Checkbox,
   Button,
+  Select,
+  MenuItem
 } from "@mui/material";
 import { useState, useEffect } from "react";
 // inputRef = react
 import Header from "../components/Header";
-import { mock } from "../components/mock";
 import FitnessCenterOutlinedIcon from "@mui/icons-material/FitnessCenterOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { borderColor } from "@mui/system";
 import AddCircleSharpIcon from "@mui/icons-material/AddCircleSharp";
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import { mock } from "../components/mock";
+import { SelectChangeEvent } from '@mui/material/Select';
 
-const ExerciseFields = (id, name) => {
+// const ExerciseFields = ({exercise, reps, weigth}) => {
+  const ExerciseFields = ({item}) => {
   const [sets, setSets] = useState([""]);
-  return (
+
+  const handleChange = (event: SelectChangeEvent) => {
+    item.exercise = event.target.value as string
+  };
+
+  return ( 
     <Box flex="1" mb="15px">
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          //value={age}
+          label="Age"
+          //onChange={handleChange}
+        >
+          {mock.map((item) => (
+            <MenuItem value={item.name}>{item.name}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       {sets.map((item) => (
-        <Box display="flex" flex="1" sx={{ flexDirection: "row", }} m="10px">
+        <Box display="flex" flex="1" sx={{ flexDirection: "row" }} m="10px">
           <Typography flex="0" align="center" ml="5px" mr="5px">
             Set
           </Typography>
-          <Typography flex="0.5" align="center" ml="5px" mr="5px" sx={{border: 1}}>
+          <Typography
+            flex="0.5"
+            align="center"
+            ml="5px"
+            mr="5px"
+            sx={{ border: 1 }}
+          >
             aaaa
           </Typography>
-          <Typography flex="0.5" align="center" ml="5px" mr="5px" sx={{border: 1}}>
+          <Typography
+            flex="0.5"
+            align="center"
+            ml="5px"
+            mr="5px"
+            sx={{ border: 1 }}
+          >
             bbbb
           </Typography>
         </Box>
@@ -70,8 +107,7 @@ export default function enterWorkout() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const alist = [{ id: "a", name: "aaaa" }];
-
+  const alist = [{ exercise: "aa", reps: [], weight: []}];
   const [exercises, setExercises] = useState(alist);
 
   return (
@@ -86,12 +122,14 @@ export default function enterWorkout() {
         Exercises
       </Typography>
       {exercises.map((item) => (
-        <ExerciseFields id={item.id} name={item.name} />
+        // <ExerciseFields exercise={item.exercise} reps={item.reps} weight={item.weight}/>
+            <ExerciseFields item={item}/>
       ))}
       <Button
         flex="1"
         align="right"
         sx={{
+          width: "100%",
           color: "black",
           backgroundColor: colors.greenAccent[600],
           borderRadius: 2,
@@ -111,6 +149,31 @@ export default function enterWorkout() {
         // variant="outlined"
       >
         New
+      </Button>
+      <Button
+        flex="1"
+        align="right"
+        sx={{
+          width: "100%",
+          // color: "black",
+          // backgroundColor: colors.greenAccent[600],
+          // borderRadius: 2,
+          // borderColor: colors.greenAccent[600],
+          // typography: "h4",
+          // fontWeight: "bold",
+          // "&:hover": {
+          //   color: colors.greenAccent[600],
+          //   backgroundColor: "white",
+          //   borderColor: colors.greenAccent[600],
+          // },
+        }}
+        startIcon={<AddCircleSharpIcon />}
+        onClick={() => {
+          window.alert(exercises[0].exercise);
+        }}
+        variant="outlined"
+      >
+        Submit
       </Button>
     </Box>
   );
