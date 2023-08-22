@@ -133,7 +133,7 @@ export default function enterWorkout() {
       </Typography>
       {exercises.map((item, index) => (
         // <ExerciseFields exercise={item.exercise} reps={item.reps} weight={item.weight}/>
-            <ExerciseFields item={item} onChange={setExercises} index={index} exercises={exercises}/>
+            <ExerciseFields onChange={setExercises} index={index} exercises={exercises}/>
       ))}
       <Button
         flex="1"
