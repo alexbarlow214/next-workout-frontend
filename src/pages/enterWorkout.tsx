@@ -27,27 +27,37 @@ import { mock } from "../components/mock";
 import { SelectChangeEvent } from '@mui/material/Select';
 
 // const ExerciseFields = ({exercise, reps, weigth}) => {
-  const ExerciseFields = ({item}) => {
+  function ExerciseFields ({onChange, index, exercises}) {
   const [sets, setSets] = useState([""]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    item.exercise = event.target.value as string
+    exercises[index].exercise = event.target.value as string
+    onChange(exercises)
   };
 
   return ( 
     <Box flex="1" mb="15px">
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">Exercise</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          //value={age}
-          label="Age"
-          //onChange={handleChange}
+          label="Exercise"
+          onChange={handleChange}
+          defaultValue={exercises[index].exercise}
         >
-          {mock.map((item) => (
-            <MenuItem value={item.name}>{item.name}</MenuItem>
-          ))}
+          {mock.map((exercise) => 
+            (exercise.name === exercises[index].exercise ? (
+              <MenuItem value={exercise.name}>{exercise.name}</MenuItem>
+            ) : (
+              <MenuItem value={exercise.name}>{exercise.name}</MenuItem>
+              ))
+            
+          )}
+                    {/* {mock.map((exercise) => (     
+              <MenuItem value={exercise.name}>{exercise.name}</MenuItem>
+                    )              
+          )} */}
         </Select>
       </FormControl>
       {sets.map((item) => (
@@ -107,7 +117,7 @@ export default function enterWorkout() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const alist = [{ exercise: "aa", reps: [], weight: []}];
+  const alist = [{ exercise: "Bicep Curl", reps: [], weight: []}];
   const [exercises, setExercises] = useState(alist);
 
   return (
@@ -121,9 +131,9 @@ export default function enterWorkout() {
       >
         Exercises
       </Typography>
-      {exercises.map((item) => (
+      {exercises.map((item, index) => (
         // <ExerciseFields exercise={item.exercise} reps={item.reps} weight={item.weight}/>
-            <ExerciseFields item={item}/>
+            <ExerciseFields item={item} onChange={setExercises} index={index} exercises={exercises}/>
       ))}
       <Button
         flex="1"
@@ -144,7 +154,7 @@ export default function enterWorkout() {
         }}
         startIcon={<AddCircleSharpIcon />}
         onClick={() => {
-          setExercises(exercises.concat({ id: "a", name: "aaaa" }));
+          setExercises(exercises.concat({ exercise: "Chest Fly", reps: [], weight: []}));
         }}
         // variant="outlined"
       >
