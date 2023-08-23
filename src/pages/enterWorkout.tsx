@@ -29,7 +29,7 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import InputAdornment from '@mui/material/InputAdornment';
 
 // const ExerciseFields = ({exercise, reps, weigth}) => {
-function ExerciseFields({ onChange, index, exercises }) {
+function ExerciseFields({ onChange, index, exercises, register }) {
   const [sets, setSets] = useState([""]);
 
   const handleExerciseChange = (event: SelectChangeEvent) => {
@@ -141,8 +141,11 @@ export default function enterWorkout() {
   const [exercises, setExercises] = useState(alist);
   const { register, handleSubmit } = useForm();
 
+  const onSubmit = data => window.alert(JSON.stringify(exercises));
+
   return (
     <Box flex="1" alignItems="center" m="15px">
+          <form onSubmit={handleSubmit(onSubmit)}>
       <Typography
         flex="1"
         align="center"
@@ -159,6 +162,7 @@ export default function enterWorkout() {
           onChange={setExercises}
           index={index}
           exercises={exercises}
+          register={register}
         />
       ))}
       <Button
@@ -189,6 +193,7 @@ export default function enterWorkout() {
         New
       </Button>
       <Button
+      type="submit"
         flex="1"
         align="right"
         sx={{
@@ -206,13 +211,11 @@ export default function enterWorkout() {
           // },
         }}
         startIcon={<AddCircleSharpIcon />}
-        onClick={() => {
-          window.alert(JSON.stringify(exercises));
-        }}
         variant="outlined"
       >
         Submit
       </Button>
+      </form>
     </Box>
   );
 }
