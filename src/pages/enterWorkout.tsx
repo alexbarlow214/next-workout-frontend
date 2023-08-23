@@ -11,7 +11,8 @@ import {
   Checkbox,
   Button,
   Select,
-  MenuItem
+  MenuItem,
+  TextField,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 // inputRef = react
@@ -21,23 +22,23 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { borderColor } from "@mui/system";
 import AddCircleSharpIcon from "@mui/icons-material/AddCircleSharp";
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 import { mock } from "../components/mock";
-import { SelectChangeEvent } from '@mui/material/Select';
+import { SelectChangeEvent } from "@mui/material/Select";
 
 // const ExerciseFields = ({exercise, reps, weigth}) => {
-  function ExerciseFields ({onChange, index, exercises}) {
+function ExerciseFields({ onChange, index, exercises }) {
   const [sets, setSets] = useState([""]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    exercises[index].exercise = event.target.value as string
-    onChange(exercises)
+    exercises[index].exercise = event.target.value as string;
+    onChange(exercises);
   };
 
-  return ( 
+  return (
     <Box flex="1" mb="15px">
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{mb: "10px"}}>
         <InputLabel id="demo-simple-select-label">Exercise</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -46,43 +47,45 @@ import { SelectChangeEvent } from '@mui/material/Select';
           onChange={handleChange}
           defaultValue={exercises[index].exercise}
         >
-          {mock.map((exercise) => 
-            (exercise.name === exercises[index].exercise ? (
+          {mock.map((exercise) =>
+            exercise.name === exercises[index].exercise ? (
               <MenuItem value={exercise.name}>{exercise.name}</MenuItem>
             ) : (
               <MenuItem value={exercise.name}>{exercise.name}</MenuItem>
-              ))
-            
+            )
           )}
-                    {/* {mock.map((exercise) => (     
+          {/* {mock.map((exercise) => (     
               <MenuItem value={exercise.name}>{exercise.name}</MenuItem>
                     )              
           )} */}
         </Select>
       </FormControl>
-      {sets.map((item) => (
-        <Box display="flex" flex="1" sx={{ flexDirection: "row" }} m="10px">
-          <Typography flex="0" align="center" ml="5px" mr="5px">
-            Set
+      {sets.map((item, index) => (
+        <Box display="flex" alignItems="center"  flex="1" sx={{ flexDirection: "row" }} mb="10px">
+          <Typography display="flex" flex="0" mr="5px" justifyContent={"center"} minWidth={"50px"}>
+            {"Set " + (index + 1).toString()}
           </Typography>
-          <Typography
-            flex="0.5"
+          <TextField
+            required
+            label="Reps"
+            variant="outlined"
+            align="center"
+            type="number"
+            ml="5px"
+            mr="5px"
+            sx={{ flex: 0.5, ml: "5px", mr: "5px"}}
+          />
+          <TextField
+            required
+            label="Weight"
+            variant="outlined"
+            align="center"
+            type="number"
             align="center"
             ml="5px"
             mr="5px"
-            sx={{ border: 1 }}
-          >
-            aaaa
-          </Typography>
-          <Typography
-            flex="0.5"
-            align="center"
-            ml="5px"
-            mr="5px"
-            sx={{ border: 1 }}
-          >
-            bbbb
-          </Typography>
+            sx={{ flex: 0.5, ml: "5px", }}
+          />
         </Box>
       ))}
       <Button
@@ -112,28 +115,34 @@ import { SelectChangeEvent } from '@mui/material/Select';
       </Button>
     </Box>
   );
-};
+}
 export default function enterWorkout() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const alist = [{ exercise: "Bicep Curl", reps: [], weight: []}];
+  const alist = [{ exercise: "Bicep Curl", reps: [], weight: [] }];
   const [exercises, setExercises] = useState(alist);
+  const { register, handleSubmit } = useForm();
 
   return (
-    <Box flex="1" alignItems="center" mb="15px">
+    <Box flex="1" alignItems="center" m="15px">
       <Typography
         flex="1"
         align="center"
         variant="h2"
         color={colors.grey[100]}
         fontWeight="bold"
+        mb="20px"
       >
         Exercises
       </Typography>
       {exercises.map((item, index) => (
         // <ExerciseFields exercise={item.exercise} reps={item.reps} weight={item.weight}/>
-            <ExerciseFields onChange={setExercises} index={index} exercises={exercises}/>
+        <ExerciseFields
+          onChange={setExercises}
+          index={index}
+          exercises={exercises}
+        />
       ))}
       <Button
         flex="1"
@@ -154,7 +163,9 @@ export default function enterWorkout() {
         }}
         startIcon={<AddCircleSharpIcon />}
         onClick={() => {
-          setExercises(exercises.concat({ exercise: "Chest Fly", reps: [], weight: []}));
+          setExercises(
+            exercises.concat({ exercise: "Chest Fly", reps: [], weight: [] })
+          );
         }}
         // variant="outlined"
       >
@@ -179,7 +190,7 @@ export default function enterWorkout() {
         }}
         startIcon={<AddCircleSharpIcon />}
         onClick={() => {
-          window.alert(exercises[0].exercise);
+          window.alert(JSON.stringify(exercises));
         }}
         variant="outlined"
       >
