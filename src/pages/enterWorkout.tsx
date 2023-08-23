@@ -26,15 +26,28 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { mock } from "../components/mock";
 import { SelectChangeEvent } from "@mui/material/Select";
+import InputAdornment from '@mui/material/InputAdornment';
 
 // const ExerciseFields = ({exercise, reps, weigth}) => {
 function ExerciseFields({ onChange, index, exercises }) {
   const [sets, setSets] = useState([""]);
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleExerciseChange = (event: SelectChangeEvent) => {
     exercises[index].exercise = event.target.value as string;
     onChange(exercises);
   };
+
+  const handleRepChange = (set: number) => {return (event) => {
+    exercises[index].reps[set] = event.target.value as number;
+    onChange(exercises);
+  }};
+
+  const handleWeightChange = (set: number) => {return (event) => {
+    exercises[index].weight[set] = event.target.value as number;
+    onChange(exercises);
+  }};
+
+
 
   return (
     <Box flex="1" mb="15px">
@@ -44,7 +57,7 @@ function ExerciseFields({ onChange, index, exercises }) {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Exercise"
-          onChange={handleChange}
+          onChange={handleExerciseChange}
           defaultValue={exercises[index].exercise}
         >
           {mock.map((exercise) =>
@@ -74,17 +87,21 @@ function ExerciseFields({ onChange, index, exercises }) {
             ml="5px"
             mr="5px"
             sx={{ flex: 0.5, ml: "5px", mr: "5px"}}
+            onChange={handleRepChange(index)}
           />
           <TextField
             required
             label="Weight"
             variant="outlined"
             align="center"
+            InputProps={{
+              endAdornment: <InputAdornment position="end">lbs</InputAdornment>,
+            }}
             type="number"
-            align="center"
             ml="5px"
             mr="5px"
             sx={{ flex: 0.5, ml: "5px", }}
+            onChange={handleWeightChange(index)}
           />
         </Box>
       ))}
