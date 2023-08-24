@@ -27,6 +27,10 @@ import FormControl from "@mui/material/FormControl";
 import { mock } from "../components/mock";
 import { SelectChangeEvent } from "@mui/material/Select";
 import InputAdornment from '@mui/material/InputAdornment';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import dayjs from 'dayjs'
 
 // const ExerciseFields = ({exercise, reps, weigth}) => {
 function ExerciseFields({ onChange, index, exercises, register }) {
@@ -137,11 +141,12 @@ export default function enterWorkout() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const alist = [{ exercise: "Bicep Curl", reps: [], weight: [] }];
+  const alist = [{exercise: "Bicep Curl", reps: [], weight: [] }];
   const [exercises, setExercises] = useState(alist);
   const { register, handleSubmit } = useForm();
+  const [date, setDate] = useState(dayjs());
 
-  const onSubmit = data => window.alert(JSON.stringify(exercises));
+  const onSubmit = data => window.alert(JSON.stringify({exercises: exercises, date: date}));
 
   return (
     <Box flex="1" alignItems="center" m="15px">
@@ -176,6 +181,7 @@ export default function enterWorkout() {
           borderColor: colors.greenAccent[600],
           typography: "h4",
           fontWeight: "bold",
+          mb: "20px",
           "&:hover": {
             color: colors.greenAccent[600],
             backgroundColor: "white",
@@ -190,19 +196,21 @@ export default function enterWorkout() {
         }}
         // variant="outlined"
       >
-        New
+        New Exercise
       </Button>
+      <Box display="flex" flex="1">
       <Button
       type="submit"
         flex="1"
         align="right"
         sx={{
+          mr:"5px",
           width: "100%",
           // color: "black",
           // backgroundColor: colors.greenAccent[600],
           // borderRadius: 2,
           // borderColor: colors.greenAccent[600],
-          // typography: "h4",
+           typography: "h4",
           // fontWeight: "bold",
           // "&:hover": {
           //   color: colors.greenAccent[600],
@@ -215,6 +223,14 @@ export default function enterWorkout() {
       >
         Submit
       </Button>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker
+          defaultValue={dayjs()}
+          // value={value}
+          onChange={(newValue) => setDate(newValue)}
+        />
+        </LocalizationProvider>
+        </Box>
       </form>
     </Box>
   );
